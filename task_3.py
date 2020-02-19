@@ -3,6 +3,11 @@ from threading import Lock as ThreadLock
 from multiprocessing import Process, Value as ProcessValue, Lock as ProcessLock
 from time import time
 
+# Создал 2 счётчика. Один работает через потоки, другой через процессы.
+# В обоих методах поддерживается конкуренция за инкремент. Процессы и потоки "переключаются"
+# в момент инкримента. Как понимаю задание было в этом. Но мы теряем в производительности.
+# Поэтому прошлая версия работает моментально, а эта в разы дольше.
+
 
 class ProcessCounter:
     def __init__(self):
