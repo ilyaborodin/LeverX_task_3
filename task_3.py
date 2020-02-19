@@ -48,7 +48,7 @@ class ThreadCounter:
             return self.value
 
     def get_time(self):
-        return "time: {}".format(self.delta_time)
+        return self.delta_time
 
 
 def start_process_counter():
@@ -63,8 +63,8 @@ def start_process_counter():
     [process.join() for process in processes]
     end_time = time()
     print("""ProcessCounter
-        a = {}
-        time: {}""".format(counter.get_value(), end_time - start_time))
+a = {}
+time: {}""".format(counter.get_value(), end_time - start_time))
     print("-" * 80)
 
 
@@ -74,8 +74,8 @@ def start_thread_counter():
         for index in range(5):
             executor.submit(counter.function, 1000000)
     print("""ThreadCounter
-    a = {}
-    time: {}""".format(counter.get_value(), counter.get_time()))
+a = {}
+time: {}""".format(counter.get_value(), counter.get_time()))
     print("-"*80)
 
 
