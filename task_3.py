@@ -2,7 +2,6 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Lock as ThreadLock
 from multiprocessing import Process, Value as ProcessValue, Lock as ProcessLock
 from time import time
-
 # Создал 2 счётчика. Один работает через потоки, другой через процессы.
 # В обоих методах поддерживается конкуренция за инкремент. Процессы и потоки "переключаются"
 # в момент инкримента. Как понимаю задание было в этом. Но мы теряем в производительности.
@@ -53,6 +52,10 @@ class ThreadCounter:
 
 
 def start_process_counter():
+    # В процессах не использовал PoolExecutor, так как в нем не возможно создать
+    # конкуренцию за вход в Lock(). В пуле следующий процесс запуститься только когда предидущий
+    # завершит работу. Как я понял это противоречит вашему issue, поэтому и пришлось отказаться
+    # от этой реализации.
     counter = ProcessCounter()
     processes = [Process(target=counter.function, args=(1000000, )) for i in range(5)]
     start_time = time()
